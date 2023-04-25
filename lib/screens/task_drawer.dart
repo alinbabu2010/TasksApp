@@ -48,11 +48,15 @@ class TaskDrawer extends StatelessWidget {
               },
             ),
             const Divider(),
-            ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Trash'),
-              trailing: const Text('0'),
-              onTap: () => _navigate(context, TrashScreen.routeName),
+            BlocBuilder<TasksBloc, TasksState>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: const Text('Trash'),
+                  trailing: Text('${state.removedTasks.length}'),
+                  onTap: () => _navigate(context, TrashScreen.routeName),
+                );
+              },
             ),
           ],
         ),
