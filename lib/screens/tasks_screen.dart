@@ -9,6 +9,8 @@ import 'add_tasks_screen.dart';
 class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
 
+  static const routeName = "tasks_screen";
+
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
