@@ -5,26 +5,40 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:tasks_app/main.dart';
 import 'package:tasks_app/utils/app_route.dart';
 
+class MockStorage extends Mock implements Storage {}
+
+Storage _buildMockStorage() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  final storage = MockStorage();
+  when(() => storage.write(any(), any<dynamic>())).thenAnswer((_) async {});
+  return storage;
+}
+
 void main() {
   testWidgets('Sample test', (WidgetTester tester) async {
-    HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: await getApplicationDocumentsDirectory());
+    TestWidgetsFlutterBinding.ensureInitialized();
+    HydratedBloc.storage = _buildMockStorage();
 
-    // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp(appRouter: AppRoute()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('Tasks'), findsOneWidget);
+    expect(find.widgetWithText(Chip, '0 Tasks'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    if (Platform.isAndroid) {
+      await tester.tap(find.widgetWithIcon(FloatingActionButton, Icons.add));
+    }
+    if (Platform.isIOS) {
+      await tester.tap(find.byIcon(Icons.add));
+    }
+
     await tester.pump();
   });
 }
