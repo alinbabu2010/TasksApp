@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasks_app/screens/tasks_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
 
+import '../blocs/bloc_exports.dart';
 import '../utils/dimens.dart';
 
 class TaskDrawer extends StatelessWidget {
@@ -36,11 +37,15 @@ class TaskDrawer extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.folder_special),
-              title: const Text('My Tasks'),
-              trailing: const Text('0'),
-              onTap: () => _navigate(context, TasksScreen.routeName),
+            BlocBuilder<TasksBloc, TasksState>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: const Icon(Icons.folder_special),
+                  title: const Text('My Tasks'),
+                  trailing: Text('${state.allTasks.length}'),
+                  onTap: () => _navigate(context, TasksScreen.routeName),
+                );
+              },
             ),
             const Divider(),
             ListTile(
