@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/screens/task_drawer.dart';
 
+import '../blocs/bloc_exports.dart';
 import '../widgets/tasks_list.dart';
 
 class TrashScreen extends StatelessWidget {
@@ -20,18 +21,22 @@ class TrashScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Center(
-            child: Chip(
-              label: Text(
-                'Tasks',
+      body: BlocBuilder<TasksBloc, TasksState>(
+        builder: (context, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Chip(
+                  label: Text(
+                    '${state.removedTasks.length} Tasks',
+                  ),
+                ),
               ),
-            ),
-          ),
-          TasksList(taskList: List.empty())
-        ],
+              TasksList(taskList: state.removedTasks)
+            ],
+          );
+        },
       ),
       drawer: const TaskDrawer(),
     );
