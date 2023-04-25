@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:tasks_app/screens/task_drawer.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../widgets/tasks_list.dart';
@@ -57,6 +58,7 @@ class _TasksScreenState extends State<TasksScreen> {
               TasksList(taskList: state.allTasks)
             ],
           ),
+          drawer: const TaskDrawer(),
           floatingActionButton: Platform.isAndroid
               ? FloatingActionButton(
                   onPressed: () => _addTasks(context),
