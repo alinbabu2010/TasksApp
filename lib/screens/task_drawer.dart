@@ -28,7 +28,7 @@ class TaskDrawer extends StatelessWidget {
               child: Text(
                 "Task Drawer",
                 style: themeData.textTheme.headlineSmall
-                    ?.copyWith(color: themeData.colorScheme.onSurface),
+                    ?.copyWith(color: themeData.colorScheme.onSecondary),
                 textAlign: TextAlign.center,
               ),
             ),

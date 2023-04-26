@@ -42,6 +42,7 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageListMap[selectedPage]["title"]),
+        foregroundColor: Theme.of(context).colorScheme.onSecondary,
         actions: [
           if (Platform.isIOS && selectedPage == 0)
             IconButton(
