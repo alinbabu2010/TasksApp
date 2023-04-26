@@ -10,13 +10,7 @@ class TaskDrawer extends StatelessWidget {
   const TaskDrawer({Key? key}) : super(key: key);
 
   void _navigate(BuildContext context, String route) {
-    final navigator = Navigator.of(context);
-    final currentRoute = ModalRoute.of(context)?.settings.name;
-    if (currentRoute == route) {
-      navigator.pop();
-    } else {
-      navigator.pushNamed(route);
-    }
+    Navigator.of(context).pushReplacementNamed(route);
   }
 
   @override
