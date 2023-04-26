@@ -13,6 +13,11 @@ class AppThemes {
           secondary: Colors.deepOrangeAccent.shade100,
           onSecondary: Colors.black87),
       dividerColor: Colors.grey.shade300,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.deepOrangeAccent.shade100,
+        selectedItemColor: Colors.red.shade900,
+        unselectedItemColor: Colors.black87,
+      ),
     ),
     AppTheme.lightTheme: ThemeData(
       colorScheme: const ColorScheme.light(
@@ -23,6 +28,11 @@ class AppThemes {
           secondary: Colors.deepOrangeAccent,
           onSecondary: Colors.white),
       dividerColor: const Color(0xff757575),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.deepOrangeAccent,
+        selectedItemColor: Colors.yellowAccent,
+        unselectedItemColor: Colors.white,
+      ),
     ),
   };
 }
