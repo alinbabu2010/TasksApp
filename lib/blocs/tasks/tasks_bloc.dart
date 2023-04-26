@@ -38,10 +38,8 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
-    List<Task> allTasks = List.from(state.allTasks)..remove(event.task);
     emit(
       state.copyWith(
-        allTasks: allTasks,
         removedTasks: List.from(state.removedTasks)..remove(event.task),
       ),
     );
@@ -50,7 +48,9 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   FutureOr<void> _onRemoveTask(RemoveTask event, Emitter<TasksState> emit) {
     emit(
       state.copyWith(
-        allTasks: List.from(state.allTasks)..remove(event.task),
+        pendingTasks: List.from(state.pendingTasks)..remove(event.task),
+        completedTasks: List.from(state.completedTasks)..remove(event.task),
+        favoriteTasks: List.from(state.favoriteTasks)..remove(event.task),
         removedTasks: List.from(state.removedTasks)
           ..add(event.task.copyWith(isDeleted: true)),
       ),
