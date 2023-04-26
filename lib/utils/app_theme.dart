@@ -18,6 +18,9 @@ class AppThemes {
         selectedItemColor: Colors.red.shade900,
         unselectedItemColor: Colors.black87,
       ),
+      splashFactory: InkRipple.splashFactory,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.red.shade900.withOpacity(0.1),
     ),
     AppTheme.lightTheme: ThemeData(
       colorScheme: const ColorScheme.light(
@@ -33,6 +36,11 @@ class AppThemes {
         selectedItemColor: Colors.yellowAccent,
         unselectedItemColor: Colors.white,
       ),
+      // Code to add native ripple for BottomNavigationBar
+      // Ref: https://github.com/flutter/flutter/issues/43515#issuecomment-612782673
+      splashFactory: InkRipple.splashFactory,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.yellowAccent.withOpacity(0.1),
     ),
   };
 }
