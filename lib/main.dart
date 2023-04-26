@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/utils/app_route.dart';
 import 'package:tasks_app/utils/app_theme.dart';
 
 import 'blocs/bloc_exports.dart';
-import 'screens/tasks_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +44,7 @@ class TasksApp extends StatelessWidget {
             theme: AppThemes.appThemeData[AppTheme.lightTheme],
             debugShowCheckedModeBanner: false,
             darkTheme: AppThemes.appThemeData[AppTheme.darkTheme],
-            home: const TasksScreen(),
+            home: const TabsScreen(),
             themeMode: themeMode,
             onGenerateRoute: appRouter.onGenerateRoute,
           );
