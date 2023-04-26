@@ -13,11 +13,11 @@ Future<void> main() async {
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
   HydratedBloc.storage = storage;
-  runApp(MyApp(appRouter: AppRoute()));
+  runApp(TasksApp(appRouter: AppRoute()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.appRouter}) : super(key: key);
+class TasksApp extends StatelessWidget {
+  const TasksApp({Key? key, required this.appRouter}) : super(key: key);
 
   final AppRoute appRouter;
 
@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.deepOrange.shade200));
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TasksBloc()),
@@ -34,13 +35,10 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
-          /*final theme =
-              state.isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme;*/
-          final themeMode = state.isSystemTheme
-              ? ThemeMode.system
-              : state.isDarkTheme
-                  ? ThemeMode.dark
-                  : ThemeMode.light;
+          final customThemeMode =
+              state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+          final themeMode =
+              state.isSystemTheme ? ThemeMode.system : customThemeMode;
           return MaterialApp(
             title: 'Flutter Tasks App',
             theme: AppThemes.appThemeData[AppTheme.lightTheme],

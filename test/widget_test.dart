@@ -28,7 +28,7 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
     HydratedBloc.storage = _buildMockStorage();
 
-    await tester.pumpWidget(MyApp(appRouter: AppRoute()));
+    await tester.pumpWidget(TasksApp(appRouter: AppRoute()));
 
     expect(find.widgetWithText(Chip, '0 Tasks'), findsOneWidget);
 
