@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks_app/screens/tasks_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
@@ -15,19 +14,21 @@ class TaskDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return SafeArea(
       child: Drawer(
         child: ListView(
           children: [
             Container(
-              color: CupertinoColors.systemGrey5,
+              color: themeData.colorScheme.surface,
               padding: const EdgeInsets.symmetric(
                 vertical: Dimens.drawerContainerVPadding,
                 horizontal: Dimens.drawerContainerHPadding,
               ),
               child: Text(
                 "Task Drawer",
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: themeData.textTheme.headlineSmall
+                    ?.copyWith(color: themeData.colorScheme.onSurface),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -54,15 +55,41 @@ class TaskDrawer extends StatelessWidget {
             ),
             const Divider(height: Dimens.drawerDividerHeight),
             ListTile(
+              leading: const Icon(Icons.dark_mode),
+              title: const Text("Dark Theme"),
+              trailing: BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, state) {
+                  return Switch(
+                    value: state.isDarkTheme,
+                    onChanged: (bool value) {
+                      final event =
+                          value ? DarkThemeEvent() : LightThemeEvent();
+                      context.read<ThemeBloc>().add(event);
+                    },
+                  );
+                },
+              ),
+            ),
+            const Divider(height: Dimens.drawerDividerHeight),
+            ListTile(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: Dimens.drawerThemeTileVPadding,
                 horizontal: Dimens.drawerThemeTileHPadding,
               ),
-              leading: const Icon(Icons.dark_mode),
-              title: const Text("Dark Theme"),
-              trailing: Switch(
-                value: false,
-                onChanged: (bool value) {},
+              leading: const Icon(Icons.light_mode),
+              title: const Text("System Theme"),
+              trailing: BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, state) {
+                  return Switch(
+                    value: state.isSystemTheme,
+                    onChanged: (bool value) {
+                      final event = value
+                          ? EnableSystemThemeEvent()
+                          : DisableSystemThemeEvent();
+                      context.read<ThemeBloc>().add(event);
+                    },
+                  );
+                },
               ),
             ),
           ],
