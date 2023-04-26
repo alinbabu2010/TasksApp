@@ -22,9 +22,7 @@ class AddTasksScreen extends StatelessWidget {
             "Add Task",
             style: TextStyle(fontSize: Dimens.addTaskFontSize),
           ),
-          const SizedBox(
-            height: Dimens.addTaskSizedBoxHeight,
-          ),
+          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
           TextField(
             autofocus: true,
             controller: titleController,
@@ -32,9 +30,7 @@ class AddTasksScreen extends StatelessWidget {
             decoration: const InputDecoration(
                 label: Text('Title'), border: OutlineInputBorder()),
           ),
-          const SizedBox(
-            height: Dimens.addTaskSizedBoxHeight,
-          ),
+          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
           TextField(
             controller: descriptionController,
             maxLines: 3,
@@ -43,9 +39,7 @@ class AddTasksScreen extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
-          const SizedBox(
-            height: Dimens.addTaskSizedBoxHeight,
-          ),
+          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
