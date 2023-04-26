@@ -22,13 +22,19 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
     final task = event.task;
-    final index = state.allTasks.indexOf(task);
-    List<Task> allTasks = List.from(state.allTasks)..remove(task);
-    final updatedTask = task.copyWith(
-      isDone: task.isDone == false,
-    );
-    allTasks.insert(index, updatedTask);
-    emit(state.copyWith(allTasks: allTasks));
+    List<Task> pendingTasks = state.pendingTasks;
+    List<Task> completedTasks = state.completedTasks;
+    if (task.isDone == false) {
+      pendingTasks = List.from(pendingTasks)..remove(task);
+      completedTasks = List.from(completedTasks)
+        ..insert(0, task.copyWith(isDone: true));
+    } else {
+      completedTasks = List.from(completedTasks)..remove(task);
+      pendingTasks = List.from(pendingTasks)
+        ..insert(0, task.copyWith(isDone: false));
+    }
+    emit(state.copyWith(
+        pendingTasks: pendingTasks, completedTasks: completedTasks));
   }
 
   FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
