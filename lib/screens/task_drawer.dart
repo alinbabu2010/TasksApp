@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasks_app/screens/tasks_screen.dart';
+import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
 
 import '../blocs/bloc_exports.dart';
@@ -38,7 +38,7 @@ class TaskDrawer extends StatelessWidget {
                   leading: const Icon(Icons.folder_special),
                   title: const Text('My Tasks'),
                   trailing: Text('${state.allTasks.length}'),
-                  onTap: () => _navigate(context, TasksScreen.routeName),
+                  onTap: () => _navigate(context, TabsScreen.routeName),
                 );
               },
             ),
