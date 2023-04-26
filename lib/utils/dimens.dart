@@ -7,4 +7,7 @@ class Dimens {
   // TaskDrawer
   static const drawerContainerVPadding = 14.0;
   static const drawerContainerHPadding = 20.0;
+  static const drawerDividerHeight = 1.0;
+  static const drawerThemeTileVPadding = 4.0;
+  static const drawerThemeTileHPadding = 16.0;
 }

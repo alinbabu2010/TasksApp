@@ -41,7 +41,7 @@ class TaskDrawer extends StatelessWidget {
                 );
               },
             ),
-            const Divider(),
+            const Divider(height: Dimens.drawerDividerHeight),
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return ListTile(
@@ -51,6 +51,19 @@ class TaskDrawer extends StatelessWidget {
                   onTap: () => _navigate(context, TrashScreen.routeName),
                 );
               },
+            ),
+            const Divider(height: Dimens.drawerDividerHeight),
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: Dimens.drawerThemeTileVPadding,
+                horizontal: Dimens.drawerThemeTileHPadding,
+              ),
+              leading: const Icon(Icons.dark_mode),
+              title: const Text("Dark Theme"),
+              trailing: Switch(
+                value: false,
+                onChanged: (bool value) {},
+              ),
             ),
           ],
         ),
