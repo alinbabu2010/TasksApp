@@ -16,7 +16,8 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) {
-    emit(state.copyWith(allTasks: List.from(state.allTasks)..add(event.task)));
+    emit(state.copyWith(
+        pendingTasks: List.from(state.pendingTasks)..add(event.task)));
   }
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
