@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
+import 'package:tasks_app/utils/extensions.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../utils/dimens.dart';
@@ -34,11 +35,14 @@ class TaskDrawer extends StatelessWidget {
             ),
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
+                final pendingTaskLength =
+                    state.allTasks.getPendingTask().length;
+                final completedTaskLength =
+                    state.allTasks.getCompletedTask().length;
                 return ListTile(
                   leading: const Icon(Icons.folder_special),
                   title: const Text('My Tasks'),
-                  trailing: Text(
-                      '${state.pendingTasks.length} | ${state.completedTasks.length}'),
+                  trailing: Text('$pendingTaskLength | $completedTaskLength'),
                   onTap: () => _navigate(context, TabsScreen.routeName),
                 );
               },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/utils/extensions.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../widgets/tasks_list.dart';
@@ -19,15 +20,15 @@ class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
-        final pendingTaskLength = state.pendingTasks.length;
-        final completedTaskLength = state.completedTasks.length;
-        final favoriteTaskLength = state.favoriteTasks.length;
+        final pendingTasks = state.allTasks.getPendingTask();
+        final completedTasks = state.allTasks.getCompletedTask();
+        final favoriteTasks = state.allTasks.getFavoriteTask();
 
         var tasks = isCompleted == true
-            ? state.completedTasks
+            ? completedTasks
             : isFavorite == true
-                ? state.favoriteTasks
-                : state.pendingTasks;
+                ? favoriteTasks
+                : pendingTasks;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,11 +39,9 @@ class TasksScreen extends StatelessWidget {
                   duration: const Duration(milliseconds: 150),
                   curve: Curves.fastOutSlowIn,
                   child: Text(
-                    isCompleted == true
-                        ? "$completedTaskLength Tasks"
-                        : isFavorite == true
-                            ? "$favoriteTaskLength Tasks"
-                            : "$pendingTaskLength Pending | $completedTaskLength Completed",
+                    isFavorite == true
+                        ? "${favoriteTasks.length} Tasks"
+                        : "${pendingTasks.length} Pending | ${completedTasks.length} Completed",
                   ),
                 ),
               ),
