@@ -8,10 +8,12 @@ import '../models/tasks.dart';
 class AddOrEditTaskScreen extends StatelessWidget {
   final Task? task;
 
-  const AddOrEditTaskScreen({
+  AddOrEditTaskScreen({
     super.key,
     this.task,
   });
+
+  final formKey = GlobalKey<FormState>();
 
   void _onSubmit(String title, String description, BuildContext context) {
     if (task != null) {
@@ -41,44 +43,65 @@ class AddOrEditTaskScreen extends StatelessWidget {
         TextEditingController(text: task?.description);
     return Padding(
       padding: const EdgeInsets.all(Dimens.addTaskPadding),
-      child: Column(
-        children: [
-          Text(
-            task != null ? "Edit Task" : "Add Task",
-            style: const TextStyle(fontSize: Dimens.addTaskFontSize),
-          ),
-          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
-          TextField(
-            autofocus: true,
-            controller: titleController,
-            textInputAction: TextInputAction.next,
-            decoration: const InputDecoration(
-                label: Text('Title'), border: OutlineInputBorder()),
-          ),
-          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
-          TextField(
-            controller: descriptionController,
-            maxLines: 3,
-            decoration: const InputDecoration(
-              label: Text('Description'),
-              border: OutlineInputBorder(),
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            Text(
+              task != null ? "Edit Task" : "Add Task",
+              style: const TextStyle(fontSize: Dimens.addTaskFontSize),
             ),
-          ),
-          const SizedBox(height: Dimens.addTaskSizedBoxHeight),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text("Cancel"),
+            const SizedBox(height: Dimens.addTaskSizedBoxHeight),
+            TextFormField(
+              autofocus: true,
+              controller: titleController,
+              textInputAction: TextInputAction.next,
+              decoration: const InputDecoration(
+                label: Text('Title'),
+                border: OutlineInputBorder(),
               ),
-              ElevatedButton(
-                  onPressed: () => _onSubmit(titleController.text,
-                      descriptionController.text, context),
-                  child: Text(task == null ? 'Add' : 'Save')),
-            ],
-          )
-        ],
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return "Please enter a valid title";
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: Dimens.addTaskSizedBoxHeight),
+            TextFormField(
+              controller: descriptionController,
+              maxLines: 3,
+              decoration: const InputDecoration(
+                label: Text('Description'),
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return "Please enter a valid description";
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: Dimens.addTaskSizedBoxHeight),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Cancel"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState?.validate() == true) {
+                        _onSubmit(titleController.text,
+                            descriptionController.text, context);
+                      }
+                    },
+                    child: Text(task == null ? 'Add' : 'Save')),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
