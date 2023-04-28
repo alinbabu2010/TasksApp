@@ -21,6 +21,9 @@ class TaskTile extends StatelessWidget {
         );
   }
 
+  String getFormattedDate() =>
+      DateFormat.yMMMd().add_Hm().format(DateTime.parse(task.date));
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -33,7 +36,7 @@ class TaskTile extends StatelessWidget {
               task.isDone! ? TextDecoration.lineThrough : TextDecoration.none,
         ),
       ),
-      subtitle: Text(DateFormat.yMMMd().add_Hm().format(DateTime.now())),
+      subtitle: Text(getFormattedDate()),
       leading: const SizedBox(
           height: double.infinity, child: Icon(Icons.star_outline)),
       trailing: FittedBox(
