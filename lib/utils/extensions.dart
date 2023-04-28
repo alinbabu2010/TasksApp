@@ -26,7 +26,7 @@ extension AddEditTask on BuildContext {
         child: Container(
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: AddTasksScreen(task: task),
+          child: AddOrEditTaskScreen(task: task),
         ),
       ),
     );

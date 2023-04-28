@@ -5,10 +5,10 @@ import 'package:tasks_app/utils/guid_gen.dart';
 
 import '../models/tasks.dart';
 
-class AddTasksScreen extends StatelessWidget {
+class AddOrEditTaskScreen extends StatelessWidget {
   final Task? task;
 
-  const AddTasksScreen({
+  const AddOrEditTaskScreen({
     super.key,
     this.task,
   });
