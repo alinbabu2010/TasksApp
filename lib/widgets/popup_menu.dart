@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/models/tasks.dart';
+import 'package:tasks_app/utils/extensions.dart';
 import 'package:tasks_app/widgets/popup_text_button.dart';
 
 class PopupMenu extends StatelessWidget {
@@ -19,12 +20,12 @@ class PopupMenu extends StatelessWidget {
     return PopupMenuButton(
       itemBuilder: (context) => task.isDeleted == false
           ? [
-              PopupMenuItem(
-                child: const PopupTextButton(
+              const PopupMenuItem(
+                value: 1,
+                child: PopupTextButton(
                   icon: Icons.edit,
                   label: "Edit",
                 ),
-                onTap: () {},
               ),
               PopupMenuItem(
                 onTap: favoriteOrUnfavoriteCallback,
@@ -58,6 +59,9 @@ class PopupMenu extends StatelessWidget {
                 ),
               ),
             ],
+      onSelected: (value) {
+        context.showAddOrEditTaskBottomSheet(task: task);
+      },
     );
   }
 }
