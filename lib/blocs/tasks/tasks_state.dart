@@ -1,45 +1,28 @@
 part of 'tasks_bloc.dart';
 
 class TasksState extends Equatable {
-  final List<Task> pendingTasks;
-  final List<Task> completedTasks;
-  final List<Task> favoriteTasks;
+  final List<Task> allTasks;
   final List<Task> removedTasks;
 
   const TasksState({
-    this.pendingTasks = const <Task>[],
-    this.completedTasks = const <Task>[],
-    this.favoriteTasks = const <Task>[],
+    this.allTasks = const <Task>[],
     this.removedTasks = const <Task>[],
   });
 
   @override
-  List<Object?> get props =>
-      [pendingTasks, completedTasks, favoriteTasks, removedTasks];
+  List<Object?> get props => [allTasks, removedTasks];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'pendingTasks': pendingTasks.map((x) => x.toMap()).toList(),
-      'completedTasks': completedTasks.map((x) => x.toMap()).toList(),
-      'favoriteTasks': favoriteTasks.map((x) => x.toMap()).toList(),
+      'allTasks': allTasks.map((x) => x.toMap()).toList(),
       'removedTasks': removedTasks.map((x) => x.toMap()).toList(),
     };
   }
 
   factory TasksState.fromMap(Map<String, dynamic> map) {
     return TasksState(
-      pendingTasks: List<Task>.from(
-        map['pendingTasks'].map<Task>(
-          (x) => Task.fromMap(x),
-        ),
-      ),
-      completedTasks: List<Task>.from(
-        map['completedTasks'].map<Task>(
-          (x) => Task.fromMap(x),
-        ),
-      ),
-      favoriteTasks: List<Task>.from(
-        map['favoriteTasks'].map<Task>(
+      allTasks: List<Task>.from(
+        map['allTasks'].map<Task>(
           (x) => Task.fromMap(x),
         ),
       ),
@@ -52,15 +35,11 @@ class TasksState extends Equatable {
   }
 
   TasksState copyWith({
-    List<Task>? pendingTasks,
-    List<Task>? completedTasks,
-    List<Task>? favoriteTasks,
+    List<Task>? allTasks,
     List<Task>? removedTasks,
   }) {
     return TasksState(
-      pendingTasks: pendingTasks ?? this.pendingTasks,
-      completedTasks: completedTasks ?? this.completedTasks,
-      favoriteTasks: favoriteTasks ?? this.favoriteTasks,
+      allTasks: allTasks ?? this.allTasks,
       removedTasks: removedTasks ?? this.removedTasks,
     );
   }
