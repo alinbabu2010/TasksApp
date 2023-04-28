@@ -69,7 +69,7 @@ class _TabsScreenState extends State<TabsScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.incomplete_circle),
             label: "Pending Tasks",
           ),
           BottomNavigationBarItem(
