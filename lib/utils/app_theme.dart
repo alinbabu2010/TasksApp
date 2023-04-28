@@ -8,7 +8,7 @@ class AppThemes {
       colorScheme: ColorScheme.dark(
         primary: Colors.deepOrange.shade300,
         surface: Colors.deepOrange.shade300,
-        background: const Color(0xFF212121),
+        background: const Color(0xB6212121),
         secondary: Colors.deepOrangeAccent.shade100,
         onSecondary: Colors.black87,
       ),
@@ -26,7 +26,7 @@ class AppThemes {
       colorScheme: const ColorScheme.light(
         primary: Colors.deepOrange,
         surface: Colors.deepOrange,
-        background: Color(0xFFE5E5E5),
+        background: Color(0xFFD9D8D8),
         secondary: Colors.deepOrangeAccent,
         onSecondary: Colors.white,
       ),
