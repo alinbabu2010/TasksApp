@@ -21,11 +21,17 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
-    List<Task> allTasks = state.allTasks
-        .map((task) => task == event.task
-            ? task.copyWith(isDone: task.isDone == false)
-            : task)
-        .toList();
+    var newTask = event.task;
+    List<Task> allTasks = state.allTasks.map((task) {
+      return task.id == newTask.id
+          ? event.isEdit == true
+              ? task.copyWith(
+                  title: newTask.title,
+                  description: newTask.description,
+                )
+              : task.copyWith(isDone: task.isDone == false)
+          : task;
+    }).toList();
     emit(state.copyWith(allTasks: allTasks));
   }
 

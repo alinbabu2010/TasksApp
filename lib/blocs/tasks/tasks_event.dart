@@ -15,8 +15,9 @@ class AddTask extends TasksEvent {
 
 class UpdateTask extends TasksEvent {
   final Task task;
+  final bool? isEdit;
 
-  const UpdateTask({required this.task});
+  const UpdateTask({this.isEdit, required this.task});
 
   @override
   List<Object?> get props => [task];
