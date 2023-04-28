@@ -15,6 +15,8 @@ class TasksList extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: ExpansionPanelList.radio(
+          dividerColor: Theme.of(context).colorScheme.background,
+          elevation: 1,
           children: taskList
               .map((task) => ExpansionPanelRadio(
                     value: task.id,
@@ -26,18 +28,18 @@ class TasksList extends StatelessWidget {
                             const TextSpan(
                               text: "Text\n",
                               style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: task.title),
-                            const TextSpan(
-                              text: "\n\nDescription\n",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: task.description),
-                          ],
                         ),
-                      ),
+                        TextSpan(text: task.title),
+                        const TextSpan(
+                          text: "\n\nDescription\n",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(text: task.description),
+                      ],
                     ),
-                  ))
+                  ),
+                ),
+              ))
               .toList(),
         ),
       ),
