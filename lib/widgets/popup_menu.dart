@@ -5,10 +5,12 @@ import 'package:tasks_app/widgets/popup_text_button.dart';
 class PopupMenu extends StatelessWidget {
   final Task task;
   final VoidCallback cancelOrDeleteCallback;
+  final VoidCallback favoriteOrUnfavoriteCallback;
 
   const PopupMenu({
     super.key,
     required this.cancelOrDeleteCallback,
+    required this.favoriteOrUnfavoriteCallback,
     required this.task,
   });
 
@@ -25,11 +27,12 @@ class PopupMenu extends StatelessWidget {
                 onTap: () {},
               ),
               PopupMenuItem(
-                child: const PopupTextButton(
-                  icon: Icons.bookmark,
-                  label: "Add to Bookmarks",
+                onTap: favoriteOrUnfavoriteCallback,
+                child: PopupTextButton(
+                  icon:
+                      task.isFavorite! ? Icons.favorite_border : Icons.favorite,
+                  label: task.isFavorite! ? "Unfavorite task" : "Favorite task",
                 ),
-                onTap: () {},
               ),
               PopupMenuItem(
                 onTap: cancelOrDeleteCallback,
