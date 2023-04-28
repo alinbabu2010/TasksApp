@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tasks_app/blocs/bloc_exports.dart';
+import 'package:tasks_app/widgets/popup_menu.dart';
 
 import '../models/tasks.dart';
 
@@ -22,6 +24,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      horizontalTitleGap: 0,
       title: Text(
         task.title,
         overflow: TextOverflow.ellipsis,
@@ -30,13 +33,26 @@ class TaskTile extends StatelessWidget {
               task.isDone! ? TextDecoration.lineThrough : TextDecoration.none,
         ),
       ),
-      trailing: Checkbox(
-        value: task.isDone,
-        onChanged: task.isDeleted == false
-            ? (value) => context.read<TasksBloc>().add(UpdateTask(task: task))
-            : null,
+      subtitle: Text(DateFormat.yMMMd().add_Hm().format(DateTime.now())),
+      leading: const SizedBox(
+          height: double.infinity, child: Icon(Icons.star_outline)),
+      trailing: FittedBox(
+        child: Row(
+          children: [
+            Checkbox(
+              value: task.isDone,
+              onChanged: task.isDeleted == false
+                  ? (value) =>
+                      context.read<TasksBloc>().add(UpdateTask(task: task))
+                  : null,
+            ),
+            PopupMenu(
+              cancelOrDeleteCallback: () => _removeOrDeleteTask(context, task),
+              task: task,
+            )
+          ],
+        ),
       ),
-      onLongPress: () => _removeOrDeleteTask(context, task),
     );
   }
 }
