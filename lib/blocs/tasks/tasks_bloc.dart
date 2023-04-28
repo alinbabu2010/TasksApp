@@ -17,25 +17,16 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) {
-    emit(state.copyWith(
-        pendingTasks: List.from(state.pendingTasks)..add(event.task)));
+    emit(state.copyWith(allTasks: List.from(state.allTasks)..add(event.task)));
   }
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
-    final task = event.task;
-    List<Task> pendingTasks = state.pendingTasks;
-    List<Task> completedTasks = state.completedTasks;
-    if (task.isDone == false) {
-      pendingTasks = List.from(pendingTasks)..remove(task);
-      completedTasks = List.from(completedTasks)
-        ..insert(0, task.copyWith(isDone: true));
-    } else {
-      completedTasks = List.from(completedTasks)..remove(task);
-      pendingTasks = List.from(pendingTasks)
-        ..insert(0, task.copyWith(isDone: false));
-    }
-    emit(state.copyWith(
-        pendingTasks: pendingTasks, completedTasks: completedTasks));
+    List<Task> allTasks = state.allTasks
+        .map((task) => task == event.task
+            ? task.copyWith(isDone: task.isDone == false)
+            : task)
+        .toList();
+    emit(state.copyWith(allTasks: allTasks));
   }
 
   FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
@@ -49,9 +40,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   FutureOr<void> _onRemoveTask(RemoveTask event, Emitter<TasksState> emit) {
     emit(
       state.copyWith(
-        pendingTasks: List.from(state.pendingTasks)..remove(event.task),
-        completedTasks: List.from(state.completedTasks)..remove(event.task),
-        favoriteTasks: List.from(state.favoriteTasks)..remove(event.task),
+        allTasks: List.from(state.allTasks)..remove(event.task),
         removedTasks: List.from(state.removedTasks)
           ..add(event.task.copyWith(isDeleted: true)),
       ),
@@ -62,46 +51,12 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     FavoriteOrUnfavoriteTask event,
     Emitter<TasksState> emit,
   ) {
-    final task = event.task;
-    List<Task> favoriteTaskList = List.from(state.favoriteTasks);
-
-    if (task.isDone == false) {
-      List<Task> pendingTaskList = state.pendingTasks
-          .map((pendingTask) => task == pendingTask
-              ? pendingTask.copyWith(
-                  isFavorite: pendingTask.isFavorite == false)
-              : pendingTask)
-          .toList();
-
-      if (task.isFavorite == false) {
-        favoriteTaskList.insert(0, task.copyWith(isFavorite: true));
-      } else {
-        favoriteTaskList.remove(task);
-      }
-
-      emit(state.copyWith(
-        pendingTasks: pendingTaskList,
-        favoriteTasks: favoriteTaskList,
-      ));
-    } else {
-      List<Task> completedTaskList = state.completedTasks
-          .map((completedTask) => task == completedTask
-              ? completedTask.copyWith(
-                  isFavorite: completedTask.isFavorite == false)
-              : completedTask)
-          .toList();
-
-      if (task.isFavorite == false) {
-        favoriteTaskList.insert(0, task.copyWith(isFavorite: true));
-      } else {
-        favoriteTaskList.remove(task);
-      }
-
-      emit(state.copyWith(
-        completedTasks: completedTaskList,
-        favoriteTasks: favoriteTaskList,
-      ));
-    }
+    List<Task> taskList = state.allTasks
+        .map((task) => task == event.task
+            ? task.copyWith(isFavorite: task.isFavorite == false)
+            : task)
+        .toList();
+    emit(state.copyWith(allTasks: taskList));
   }
 
   @override
