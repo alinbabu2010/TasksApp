@@ -6,7 +6,7 @@ class PopupMenu extends StatelessWidget {
   final Task task;
   final VoidCallback cancelOrDeleteCallback;
 
-  PopupMenu({
+  const PopupMenu({
     super.key,
     required this.cancelOrDeleteCallback,
     required this.task,
