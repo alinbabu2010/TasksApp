@@ -37,8 +37,10 @@ class TaskTile extends StatelessWidget {
         ),
       ),
       subtitle: Text(getFormattedDate()),
-      leading: const SizedBox(
-          height: double.infinity, child: Icon(Icons.star_outline)),
+      leading: SizedBox(
+        height: double.infinity,
+        child: Icon(task.isFavorite! ? Icons.star : Icons.star_outline),
+      ),
       trailing: FittedBox(
         child: Row(
           children: [
@@ -51,6 +53,11 @@ class TaskTile extends StatelessWidget {
             ),
             PopupMenu(
               cancelOrDeleteCallback: () => _removeOrDeleteTask(context, task),
+              favoriteOrUnfavoriteCallback: () {
+                context
+                    .read<TasksBloc>()
+                    .add(FavoriteOrUnfavoriteTask(task: task));
+              },
               task: task,
             )
           ],
