@@ -34,9 +34,11 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.2
   hydrated_bloc: ^9.1.0
-  intl: ^0.18.1
+  intl: any
   mocktail: ^0.3.0
   path_provider: ^2.0.14
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
 
@@ -85,3 +87,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
