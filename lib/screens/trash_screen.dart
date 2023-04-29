@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasks_app/screens/task_drawer.dart';
+import 'package:tasks_app/widgets/popup_text_button.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../widgets/tasks_list.dart';
@@ -15,9 +16,18 @@ class TrashScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Recycle Bin'),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: () => context
+                    .read<TasksBloc>()
+                    .add(const DeleteForeverAllTasks()),
+                child: const PopupTextButton(
+                  label: "Delete all",
+                  icon: Icons.delete_forever_outlined,
+                ),
+              )
+            ],
           )
         ],
       ),
