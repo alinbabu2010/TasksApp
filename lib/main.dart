@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/utils/app_route.dart';
 import 'package:tasks_app/utils/app_theme.dart';
 
 import 'blocs/bloc_exports.dart';
+import 'generated/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +49,13 @@ class TasksApp extends StatelessWidget {
             home: const TabsScreen(),
             themeMode: themeMode,
             onGenerateRoute: appRouter.onGenerateRoute,
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
           );
         },
       ),
