@@ -27,16 +27,23 @@ class MessageLookup extends MessageLookupByLibrary {
       "${Intl.plural(count, one: '1 task', other: '${count} tasks')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "appName": MessageLookupByLibrary.simpleMessage("Tasks App"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Flutter Tasks App"),
+        "confirmPasswordError":
+            MessageLookupByLibrary.simpleMessage("Password do not match!"),
         "descriptionErrorMsg": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid description"),
         "labelAdd": MessageLookupByLibrary.simpleMessage("Add"),
         "labelAddTask": MessageLookupByLibrary.simpleMessage("Add Task"),
+        "labelBack": MessageLookupByLibrary.simpleMessage("Back"),
         "labelCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "labelCompletedTasks":
             MessageLookupByLibrary.simpleMessage("Completed tasks"),
+        "labelConfirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "labelCreateAccount":
+            MessageLookupByLibrary.simpleMessage("Create account"),
         "labelDarkTheme": MessageLookupByLibrary.simpleMessage("Dark Theme"),
         "labelDelete": MessageLookupByLibrary.simpleMessage("Delete"),
         "labelDeleteAll": MessageLookupByLibrary.simpleMessage("Delete All"),
@@ -45,14 +52,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "labelEdit": MessageLookupByLibrary.simpleMessage("Edit"),
         "labelEditTask": MessageLookupByLibrary.simpleMessage("Edit Task"),
+        "labelEmail": MessageLookupByLibrary.simpleMessage("Email"),
+        "labelError": MessageLookupByLibrary.simpleMessage("Error"),
         "labelFavorite": MessageLookupByLibrary.simpleMessage("Favorite"),
         "labelFavoriteTasks":
             MessageLookupByLibrary.simpleMessage("Favorite tasks"),
+        "labelForgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot Password"),
+        "labelLogin": MessageLookupByLibrary.simpleMessage("Login"),
         "labelMyTasks": MessageLookupByLibrary.simpleMessage("My Tasks"),
+        "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "labelPendingTasks":
             MessageLookupByLibrary.simpleMessage("Pending tasks"),
+        "labelReset": MessageLookupByLibrary.simpleMessage("Reset"),
         "labelRestore": MessageLookupByLibrary.simpleMessage("Restore"),
         "labelSave": MessageLookupByLibrary.simpleMessage("Save"),
+        "labelSuccess": MessageLookupByLibrary.simpleMessage("Success"),
         "labelSystemTheme":
             MessageLookupByLibrary.simpleMessage("System Theme"),
         "labelTaskDrawer": MessageLookupByLibrary.simpleMessage("Task Drawer"),
@@ -60,6 +75,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelTrash": MessageLookupByLibrary.simpleMessage("Trash"),
         "labelUnfavorite": MessageLookupByLibrary.simpleMessage("Unfavorite"),
         "pendingAndCompletedCount": m0,
+        "recoverPasswordDescription": MessageLookupByLibrary.simpleMessage(
+            "We will send you an email for password reset link."),
+        "recoverPasswordIntro":
+            MessageLookupByLibrary.simpleMessage("Reset your password here"),
+        "resetPasswordSuccess":
+            MessageLookupByLibrary.simpleMessage("An email has been sent"),
         "taskCount": m1,
         "titleErrorMsg":
             MessageLookupByLibrary.simpleMessage("Please enter a valid title")

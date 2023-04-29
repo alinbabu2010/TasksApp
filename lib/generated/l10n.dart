@@ -51,11 +51,91 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `Tasks App`
+  String get appName {
+    return Intl.message(
+      'Tasks App',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Flutter Tasks App`
   String get appTitle {
     return Intl.message(
       'Flutter Tasks App',
       name: 'appTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login`
+  String get labelLogin {
+    return Intl.message(
+      'Login',
+      name: 'labelLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get labelCreateAccount {
+    return Intl.message(
+      'Create account',
+      name: 'labelCreateAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get labelEmail {
+    return Intl.message(
+      'Email',
+      name: 'labelEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get labelPassword {
+    return Intl.message(
+      'Password',
+      name: 'labelPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Password`
+  String get labelConfirmPassword {
+    return Intl.message(
+      'Confirm Password',
+      name: 'labelConfirmPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password`
+  String get labelForgotPassword {
+    return Intl.message(
+      'Forgot Password',
+      name: 'labelForgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get labelReset {
+    return Intl.message(
+      'Reset',
+      name: 'labelReset',
       desc: '',
       args: [],
     );
@@ -322,6 +402,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Success`
+  String get labelSuccess {
+    return Intl.message(
+      'Success',
+      name: 'labelSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get labelError {
+    return Intl.message(
+      'Error',
+      name: 'labelError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get labelBack {
+    return Intl.message(
+      'Back',
+      name: 'labelBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset your password here`
+  String get recoverPasswordIntro {
+    return Intl.message(
+      'Reset your password here',
+      name: 'recoverPasswordIntro',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We will send you an email for password reset link.`
+  String get recoverPasswordDescription {
+    return Intl.message(
+      'We will send you an email for password reset link.',
+      name: 'recoverPasswordDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password do not match!`
+  String get confirmPasswordError {
+    return Intl.message(
+      'Password do not match!',
+      name: 'confirmPasswordError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `An email has been sent`
+  String get resetPasswordSuccess {
+    return Intl.message(
+      'An email has been sent',
+      name: 'resetPasswordSuccess',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -335,10 +485,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
-
   @override
   Future<S> load(Locale locale) => S.load(locale);
-
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

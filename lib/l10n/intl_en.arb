@@ -1,5 +1,13 @@
 {
+   "appName" : "Tasks App",
    "appTitle" : "Flutter Tasks App",
+   "labelLogin" : "Login",
+   "labelCreateAccount" : "Create account",
+   "labelEmail" : "Email",
+   "labelPassword" : "Password",
+   "labelConfirmPassword" : "Confirm Password",
+   "labelForgotPassword" : "Forgot Password",
+   "labelReset" : "Reset",
    "labelPendingTasks" : "Pending tasks",
    "labelCompletedTasks" : "Completed tasks",
    "labelFavoriteTasks" : "Favorite tasks",
@@ -25,5 +33,12 @@
    "labelUnfavorite" : "Unfavorite",
    "labelDelete" : "Delete",
    "labelRestore" : "Restore",
-   "labelDeleteForever" : "Delete Forever"
+   "labelDeleteForever" : "Delete Forever",
+   "labelSuccess" : "Success",
+   "labelError" : "Error",
+   "labelBack" : "Back",
+   "recoverPasswordIntro" : "Reset your password here",
+   "recoverPasswordDescription" : "We will send you an email for password reset link.",
+   "confirmPasswordError" : "Password do not match!",
+   "resetPasswordSuccess" : "An email has been sent"
 }
