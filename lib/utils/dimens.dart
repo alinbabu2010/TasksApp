@@ -10,4 +10,7 @@ class Dimens {
   static const drawerDividerHeight = 1.0;
   static const drawerThemeTileVPadding = 4.0;
   static const drawerThemeTileHPadding = 16.0;
+
+  // LoginScreen
+  static const authButtonVPadding = 16.0;
 }

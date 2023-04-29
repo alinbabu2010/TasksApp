@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tasks_app/screens/tabs_screen.dart';
+import 'package:tasks_app/screens/login_screen.dart';
 import 'package:tasks_app/utils/app_route.dart';
 import 'package:tasks_app/utils/app_theme.dart';
 
@@ -43,15 +43,15 @@ class TasksApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           final customThemeMode =
-          state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+              state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
           final themeMode =
-          state.isSystemTheme ? ThemeMode.system : customThemeMode;
+              state.isSystemTheme ? ThemeMode.system : customThemeMode;
           return MaterialApp(
             onGenerateTitle: (context) => S.of(context).appTitle,
             theme: AppThemes.appThemeData[AppTheme.lightTheme],
             debugShowCheckedModeBanner: false,
             darkTheme: AppThemes.appThemeData[AppTheme.darkTheme],
-            home: const TabsScreen(),
+            home: const LoginScreen(),
             themeMode: themeMode,
             onGenerateRoute: appRouter.onGenerateRoute,
             localizationsDelegates: const [
