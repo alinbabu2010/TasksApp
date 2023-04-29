@@ -58,3 +58,10 @@ class RestoreTask extends TasksEvent {
   @override
   List<Object?> get props => [task];
 }
+
+class DeleteForeverAllTasks extends TasksEvent {
+  const DeleteForeverAllTasks();
+
+  @override
+  List<Object?> get props => [];
+}
