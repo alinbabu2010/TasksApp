@@ -13,6 +13,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<UpdateTask>(_onUpdateTask);
     on<DeleteTask>(_onDeleteTask);
     on<RemoveTask>(_onRemoveTask);
+    on<RestoreTask>(_onRestoreTask);
     on<FavoriteOrUnfavoriteTask>(_onFavoriteOrUnfavoriteTask);
   }
 
@@ -63,6 +64,14 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
             : task)
         .toList();
     emit(state.copyWith(allTasks: taskList));
+  }
+
+  FutureOr<void> _onRestoreTask(RestoreTask event, Emitter<TasksState> emit) {
+    List<Task> removedTasks = List.from(state.removedTasks)..remove(event.task);
+    List<Task> allTasks = List.from(state.allTasks)
+      ..add(event.task.copyWith(isDeleted: false));
+    allTasks.sort((task1, task2) => task1.date.compareTo(task2.date));
+    emit(state.copyWith(allTasks: allTasks, removedTasks: removedTasks));
   }
 
   @override
