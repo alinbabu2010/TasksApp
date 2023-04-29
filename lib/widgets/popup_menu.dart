@@ -34,7 +34,7 @@ class PopupMenu extends StatelessWidget {
                 child: PopupTextButton(
                   icon:
                       task.isFavorite! ? Icons.favorite_border : Icons.favorite,
-                  label: task.isFavorite! ? "Unfavorite task" : "Favorite task",
+                  label: task.isFavorite! ? "Unfavorite" : "Favorite",
                 ),
               ),
               PopupMenuItem(
