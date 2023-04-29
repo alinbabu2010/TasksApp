@@ -21,6 +21,14 @@ class TaskTile extends StatelessWidget {
         );
   }
 
+  void _markFavoriteOrUnfavorite(BuildContext context, Task task) {
+    context.read<TasksBloc>().add(FavoriteOrUnfavoriteTask(task: task));
+  }
+
+  void _restoreTask(BuildContext context, Task task) {
+    context.read<TasksBloc>().add(RestoreTask(task: task));
+  }
+
   String getFormattedDate() =>
       DateFormat.yMMMd().add_Hm().format(DateTime.parse(task.date));
 
@@ -53,11 +61,9 @@ class TaskTile extends StatelessWidget {
             ),
             PopupMenu(
               cancelOrDeleteCallback: () => _removeOrDeleteTask(context, task),
-              favoriteOrUnfavoriteCallback: () {
-                context
-                    .read<TasksBloc>()
-                    .add(FavoriteOrUnfavoriteTask(task: task));
-              },
+              favoriteOrUnfavoriteCallback: () =>
+                  _markFavoriteOrUnfavorite(context, task),
+              restoreCallback: () => _restoreTask(context, task),
               task: task,
             )
           ],
