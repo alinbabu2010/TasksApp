@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:tasks_app/generated/l10n.dart';
 import 'package:tasks_app/screens/task_drawer.dart';
 import 'package:tasks_app/screens/tasks_screen.dart';
 import 'package:tasks_app/utils/extensions.dart';
@@ -15,16 +16,26 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Map<String, dynamic>> pageListMap = [
-    {"page": const TasksScreen(), "title": "Pending tasks"},
-    {"page": const TasksScreen(isCompleted: true), "title": "Completed tasks"},
-    {"page": const TasksScreen(isFavorite: true), "title": "Favorite tasks"},
-  ];
+  List<Map<String, dynamic>> getPageListMap(S appLocale) {
+    return [
+      {"page": const TasksScreen(), "title": appLocale.labelPendingTasks},
+      {
+        "page": const TasksScreen(isCompleted: true),
+        "title": appLocale.labelCompletedTasks
+      },
+      {
+        "page": const TasksScreen(isFavorite: true),
+        "title": appLocale.labelFavoriteTasks
+      },
+    ];
+  }
 
   var selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
+    final pageListMap = getPageListMap(appLocale);
     return Scaffold(
       appBar: AppBar(
         title: Text(pageListMap[selectedPage]["title"]),
@@ -40,8 +51,8 @@ class _TabsScreenState extends State<TabsScreen> {
       drawer: const TaskDrawer(),
       floatingActionButton: (Platform.isAndroid && selectedPage == 0)
           ? FloatingActionButton(
-        onPressed: () => context.showAddOrEditTaskBottomSheet(),
-              tooltip: 'Add Task',
+              onPressed: () => context.showAddOrEditTaskBottomSheet(),
+              tooltip: appLocale.labelAddTask,
               child: const Icon(Icons.add),
             )
           : null,
@@ -53,18 +64,18 @@ class _TabsScreenState extends State<TabsScreen> {
             selectedPage = index;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.incomplete_circle),
-            label: "Pending Tasks",
+            icon: const Icon(Icons.incomplete_circle),
+            label: appLocale.labelPendingTasks,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.done),
-            label: "Completed Tasks",
+            icon: const Icon(Icons.done),
+            label: appLocale.labelCompletedTasks,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Favorite Tasks",
+            icon: const Icon(Icons.favorite),
+            label: appLocale.labelFavoriteTasks,
           )
         ],
       ),

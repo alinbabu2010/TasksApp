@@ -3,6 +3,8 @@ import 'package:tasks_app/models/tasks.dart';
 import 'package:tasks_app/utils/extensions.dart';
 import 'package:tasks_app/widgets/popup_text_button.dart';
 
+import '../generated/l10n.dart';
+
 class PopupMenu extends StatelessWidget {
   final Task task;
   final VoidCallback cancelOrDeleteCallback;
@@ -19,6 +21,7 @@ class PopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
     return PopupMenuButton(
       itemBuilder: (context) => task.isDeleted == false
           ? [
@@ -30,37 +33,39 @@ class PopupMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: favoriteOrUnfavoriteCallback,
-                child: PopupTextButton(
-                  icon:
+          onTap: favoriteOrUnfavoriteCallback,
+          child: PopupTextButton(
+            icon:
                       task.isFavorite! ? Icons.favorite_border : Icons.favorite,
-                  label: task.isFavorite! ? "Unfavorite" : "Favorite",
+                  label: task.isFavorite!
+                      ? appLocale.labelUnfavorite
+                      : appLocale.labelFavorite,
                 ),
-              ),
-              PopupMenuItem(
-                onTap: cancelOrDeleteCallback,
-                child: const PopupTextButton(
+        ),
+        PopupMenuItem(
+          onTap: cancelOrDeleteCallback,
+          child: PopupTextButton(
                   icon: Icons.delete,
-                  label: "Delete",
+                  label: appLocale.labelDelete,
                 ),
-              ),
-            ]
+        ),
+      ]
           : [
-              PopupMenuItem(
-                onTap: restoreCallback,
-                child: const PopupTextButton(
+        PopupMenuItem(
+          onTap: restoreCallback,
+          child: PopupTextButton(
                   icon: Icons.restore_from_trash,
-                  label: "Restore",
+                  label: appLocale.labelRestore,
                 ),
-              ),
-              PopupMenuItem(
-                onTap: cancelOrDeleteCallback,
-                child: const PopupTextButton(
+        ),
+        PopupMenuItem(
+          onTap: cancelOrDeleteCallback,
+          child: PopupTextButton(
                   icon: Icons.delete_forever,
-                  label: "Delete Forever",
+                  label: appLocale.labelDeleteForever,
                 ),
-              ),
-            ],
+        ),
+      ],
       onSelected: (value) {
         context.showAddOrEditTaskBottomSheet(task: task);
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/generated/l10n.dart';
 import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
 import 'package:tasks_app/utils/extensions.dart';
@@ -16,6 +17,7 @@ class TaskDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final appLocale = S.of(context);
     return SafeArea(
       child: Drawer(
         child: ListView(
@@ -27,7 +29,7 @@ class TaskDrawer extends StatelessWidget {
                 horizontal: Dimens.drawerContainerHPadding,
               ),
               child: Text(
-                "Task Drawer",
+                appLocale.labelTaskDrawer,
                 style: themeData.textTheme.headlineSmall
                     ?.copyWith(color: themeData.colorScheme.onSecondary),
                 textAlign: TextAlign.center,
@@ -41,7 +43,7 @@ class TaskDrawer extends StatelessWidget {
                     state.allTasks.getCompletedTask().length;
                 return ListTile(
                   leading: const Icon(Icons.folder_special),
-                  title: const Text('My Tasks'),
+                  title: Text(appLocale.labelMyTasks),
                   trailing: Text('$pendingTaskLength | $completedTaskLength'),
                   onTap: () => _navigate(context, TabsScreen.routeName),
                 );
@@ -52,7 +54,7 @@ class TaskDrawer extends StatelessWidget {
               builder: (context, state) {
                 return ListTile(
                   leading: const Icon(Icons.delete),
-                  title: const Text('Trash'),
+                  title: Text(appLocale.labelTrash),
                   trailing: Text('${state.removedTasks.length}'),
                   onTap: () => _navigate(context, TrashScreen.routeName),
                 );
@@ -61,7 +63,7 @@ class TaskDrawer extends StatelessWidget {
             const Divider(height: Dimens.drawerDividerHeight),
             ListTile(
               leading: const Icon(Icons.dark_mode),
-              title: const Text("Dark Theme"),
+              title: Text(appLocale.labelDarkTheme),
               trailing: BlocBuilder<ThemeBloc, ThemeState>(
                 builder: (context, state) {
                   return Switch(
@@ -82,7 +84,7 @@ class TaskDrawer extends StatelessWidget {
                 horizontal: Dimens.drawerThemeTileHPadding,
               ),
               leading: const Icon(Icons.light_mode),
-              title: const Text("System Theme"),
+              title: Text(appLocale.labelSystemTheme),
               trailing: BlocBuilder<ThemeBloc, ThemeState>(
                 builder: (context, state) {
                   return Switch(

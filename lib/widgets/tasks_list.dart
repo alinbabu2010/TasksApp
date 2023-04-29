@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tasks_app/models/tasks.dart';
 import 'package:tasks_app/widgets/task_tile.dart';
 
+import '../generated/l10n.dart';
+
 class TasksList extends StatelessWidget {
   const TasksList({
     super.key,
@@ -12,6 +14,7 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
     return Expanded(
       child: SingleChildScrollView(
         child: ExpansionPanelList.radio(
@@ -25,21 +28,23 @@ class TasksList extends StatelessWidget {
                       title: SelectableText.rich(
                         TextSpan(
                           children: [
-                            const TextSpan(
-                              text: "Text\n",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            TextSpan(
+                              text: "${appLocale.labelTitle}\n",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: task.title),
+                            TextSpan(
+                              text: "\n\n${appLocale.labelDescription}\n",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(text: task.description),
+                          ],
                         ),
-                        TextSpan(text: task.title),
-                        const TextSpan(
-                          text: "\n\nDescription\n",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(text: task.description),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ))
+                  ))
               .toList(),
         ),
       ),

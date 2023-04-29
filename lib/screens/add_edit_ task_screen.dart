@@ -3,6 +3,7 @@ import 'package:tasks_app/blocs/bloc_exports.dart';
 import 'package:tasks_app/utils/dimens.dart';
 import 'package:tasks_app/utils/guid_gen.dart';
 
+import '../generated/l10n.dart';
 import '../models/tasks.dart';
 
 class AddOrEditTaskScreen extends StatelessWidget {
@@ -35,6 +36,7 @@ class AddOrEditTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
     TextEditingController titleController =
         TextEditingController(text: task?.title);
     titleController.selection =
@@ -48,7 +50,7 @@ class AddOrEditTaskScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              task != null ? "Edit Task" : "Add Task",
+              task != null ? appLocale.labelEditTask : appLocale.labelAddTask,
               style: const TextStyle(fontSize: Dimens.addTaskFontSize),
             ),
             const SizedBox(height: Dimens.addTaskSizedBoxHeight),
@@ -56,13 +58,13 @@ class AddOrEditTaskScreen extends StatelessWidget {
               autofocus: true,
               controller: titleController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                label: Text('Title'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(appLocale.labelTitle),
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Please enter a valid title";
+                  return appLocale.titleErrorMsg;
                 }
                 return null;
               },
@@ -71,13 +73,13 @@ class AddOrEditTaskScreen extends StatelessWidget {
             TextFormField(
               controller: descriptionController,
               maxLines: 3,
-              decoration: const InputDecoration(
-                label: Text('Description'),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                label: Text(appLocale.labelDescription),
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return "Please enter a valid description";
+                  return appLocale.descriptionErrorMsg;
                 }
                 return null;
               },
@@ -88,16 +90,19 @@ class AddOrEditTaskScreen extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text("Cancel"),
+                  child: Text(appLocale.labelCancel),
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState?.validate() == true) {
-                        _onSubmit(titleController.text,
-                            descriptionController.text, context);
-                      }
-                    },
-                    child: Text(task == null ? 'Add' : 'Save')),
+                  onPressed: () {
+                    if (formKey.currentState?.validate() == true) {
+                      _onSubmit(titleController.text,
+                          descriptionController.text, context);
+                    }
+                  },
+                  child: Text(
+                    task == null ? appLocale.labelAdd : appLocale.labelSave,
+                  ),
+                ),
               ],
             )
           ],

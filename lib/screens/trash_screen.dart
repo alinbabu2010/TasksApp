@@ -3,6 +3,7 @@ import 'package:tasks_app/screens/task_drawer.dart';
 import 'package:tasks_app/widgets/popup_text_button.dart';
 
 import '../blocs/bloc_exports.dart';
+import '../generated/l10n.dart';
 import '../widgets/tasks_list.dart';
 
 class TrashScreen extends StatelessWidget {
@@ -12,9 +13,10 @@ class TrashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recycle Bin'),
+        title: Text(appLocale.labelTrash),
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [
@@ -22,8 +24,8 @@ class TrashScreen extends StatelessWidget {
                 onTap: () => context
                     .read<TasksBloc>()
                     .add(const DeleteForeverAllTasks()),
-                child: const PopupTextButton(
-                  label: "Delete all",
+                child: PopupTextButton(
+                  label: appLocale.labelDeleteAll,
                   icon: Icons.delete_forever_outlined,
                 ),
               )
@@ -39,7 +41,7 @@ class TrashScreen extends StatelessWidget {
               Center(
                 child: Chip(
                   label: Text(
-                    '${state.removedTasks.length} Tasks',
+                    appLocale.taskCount(state.removedTasks.length),
                   ),
                 ),
               ),

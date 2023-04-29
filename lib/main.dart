@@ -42,7 +42,7 @@ class TasksApp extends StatelessWidget {
           final themeMode =
               state.isSystemTheme ? ThemeMode.system : customThemeMode;
           return MaterialApp(
-            title: 'Flutter Tasks App',
+            onGenerateTitle: (context) => S.of(context).appTitle,
             theme: AppThemes.appThemeData[AppTheme.lightTheme],
             debugShowCheckedModeBanner: false,
             darkTheme: AppThemes.appThemeData[AppTheme.darkTheme],

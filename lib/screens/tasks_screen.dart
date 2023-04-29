@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasks_app/generated/l10n.dart';
 import 'package:tasks_app/utils/extensions.dart';
 
 import '../blocs/bloc_exports.dart';
@@ -18,6 +19,7 @@ class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocale = S.of(context);
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
         final pendingTasks = state.allTasks.getPendingTask();
@@ -40,8 +42,11 @@ class TasksScreen extends StatelessWidget {
                   curve: Curves.fastOutSlowIn,
                   child: Text(
                     isFavorite == true
-                        ? "${favoriteTasks.length} Tasks"
-                        : "${pendingTasks.length} Pending | ${completedTasks.length} Completed",
+                        ? appLocale.taskCount(favoriteTasks.length)
+                        : appLocale.pendingAndCompletedCount(
+                            pendingTasks.length,
+                            completedTasks.length,
+                          ),
                   ),
                 ),
               ),
