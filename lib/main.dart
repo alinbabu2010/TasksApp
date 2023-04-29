@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,12 +8,16 @@ import 'package:tasks_app/utils/app_route.dart';
 import 'package:tasks_app/utils/app_theme.dart';
 
 import 'blocs/bloc_exports.dart';
+import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   HydratedBloc.storage = storage;
   runApp(TasksApp(appRouter: AppRoute()));
@@ -38,9 +43,9 @@ class TasksApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           final customThemeMode =
-              state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+          state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
           final themeMode =
-              state.isSystemTheme ? ThemeMode.system : customThemeMode;
+          state.isSystemTheme ? ThemeMode.system : customThemeMode;
           return MaterialApp(
             onGenerateTitle: (context) => S.of(context).appTitle,
             theme: AppThemes.appThemeData[AppTheme.lightTheme],
