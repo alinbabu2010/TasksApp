@@ -79,8 +79,18 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     // todo: firestore implementation
   }
 
-  FutureOr<void> _onRestoreTask(RestoreTask event, Emitter<TasksState> emit) {
-    // todo: firestore implementation
+  FutureOr<void> _onRestoreTask(
+    RestoreTask event,
+    Emitter<TasksState> emit,
+  ) async {
+    var task = event.task.copyWith(
+      isDeleted: false,
+      isFavorite: false,
+      isDone: false,
+      date: DateTime.now().toString(),
+    );
+    await tasksRepository.updateTask(task);
+    add(GetAllTasks());
   }
 
   FutureOr<void> _onDeleteAllTask(
