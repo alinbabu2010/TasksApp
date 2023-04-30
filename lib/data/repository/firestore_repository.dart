@@ -67,4 +67,20 @@ class FireStoreTasksRepository extends TasksRepository {
       throw Exception(error.toString());
     }
   }
+
+  @override
+  Future<void> deleteAllTask(List<Task> taskList) async {
+    if (firebaseAuth.currentUser == null) {
+      return;
+    }
+    try {
+      final taskData =
+          firestoreInstance.collection((firebaseAuth.currentUser?.uid)!);
+      for (var task in taskList) {
+        taskData.doc(task.id).delete();
+      }
+    } catch (error) {
+      throw Exception(error.toString());
+    }
+  }
 }
