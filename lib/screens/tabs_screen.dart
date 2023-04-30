@@ -36,6 +36,12 @@ class _TabsScreenState extends State<TabsScreen> {
   var selectedPage = 0;
 
   @override
+  void initState() {
+    context.read<TasksBloc>().add(GetAllTasks());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appLocale = S.of(context);
     final pageListMap = getPageListMap(appLocale);
