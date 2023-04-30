@@ -41,8 +41,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) async {
-    await tasksRepository.create(event.task);
-    add(GetAllTasks());
+    _onTaskCrud(tasksRepository.create(event.task));
   }
 
   FutureOr<void> _onUpdateTask(
@@ -51,16 +50,14 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     Task task = event.isEdit == true
         ? eventTask
         : eventTask.copyWith(isDone: !eventTask.isDone!);
-    await tasksRepository.updateTask(task);
-    add(GetAllTasks());
+    _onTaskCrud(tasksRepository.updateTask(task));
   }
 
   FutureOr<void> _onDeleteTask(
     DeleteTask event,
     Emitter<TasksState> emit,
   ) async {
-    await tasksRepository.deleteTask(event.task);
-    add(GetAllTasks());
+    _onTaskCrud(tasksRepository.deleteTask(event.task));
   }
 
   FutureOr<void> _onRemoveTask(
@@ -68,8 +65,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     Emitter<TasksState> emit,
   ) async {
     var task = event.task.copyWith(isDeleted: true);
-    await tasksRepository.updateTask(task);
-    add(GetAllTasks());
+    _onTaskCrud(tasksRepository.updateTask(task));
   }
 
   FutureOr<void> _onFavoriteOrUnfavoriteTask(
@@ -89,8 +85,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
       isDone: false,
       date: DateTime.now().toString(),
     );
-    await tasksRepository.updateTask(task);
-    add(GetAllTasks());
+    _onTaskCrud(tasksRepository.updateTask(task));
   }
 
   FutureOr<void> _onDeleteAllTask(
