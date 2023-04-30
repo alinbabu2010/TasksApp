@@ -3,5 +3,7 @@ abstract class AuthRepository {
 
   Future<String?>? signup(String email, String password);
 
+  Future<String?>? resetPassword(String email);
+
   Future<void> logout();
 }
