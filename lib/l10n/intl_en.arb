@@ -37,6 +37,7 @@
    "labelSuccess" : "Success",
    "labelError" : "Error",
    "labelBack" : "Back",
+   "labelLogout" : "Logout",
    "recoverPasswordIntro" : "Reset your password here",
    "recoverPasswordDescription" : "We will send you an email for password reset link.",
    "confirmPasswordError" : "Password do not match!",

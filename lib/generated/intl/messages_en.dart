@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "labelForgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "labelLogin": MessageLookupByLibrary.simpleMessage("Login"),
+        "labelLogout": MessageLookupByLibrary.simpleMessage("Logout"),
         "labelMyTasks": MessageLookupByLibrary.simpleMessage("My Tasks"),
         "labelPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "labelPendingTasks":

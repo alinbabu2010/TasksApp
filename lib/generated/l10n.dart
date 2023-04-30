@@ -433,6 +433,16 @@ class S {
     );
   }
 
+  /// `Logout`
+  String get labelLogout {
+    return Intl.message(
+      'Logout',
+      name: 'labelLogout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Reset your password here`
   String get recoverPasswordIntro {
     return Intl.message(
