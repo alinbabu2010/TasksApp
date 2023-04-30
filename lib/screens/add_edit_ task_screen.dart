@@ -17,11 +17,12 @@ class AddOrEditTaskScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
 
   void _onSubmit(String title, String description, BuildContext context) {
+    var tasksBloc = context.read<TasksBloc>();
     if (task != null) {
-      context.read<TasksBloc>().add(UpdateTask(
-            task: (task?.copyWith(title: title, description: description))!,
-            isEdit: true,
-          ));
+      tasksBloc.add(UpdateTask(
+        task: (task?.copyWith(title: title, description: description))!,
+        isEdit: true,
+      ));
     } else {
       var task = Task(
         title: title,
@@ -29,7 +30,7 @@ class AddOrEditTaskScreen extends StatelessWidget {
         date: DateTime.now().toString(),
         id: GUIDGen.generate(),
       );
-      context.read<TasksBloc>().add(AddTask(task: task));
+      tasksBloc.add(AddTask(task: task));
     }
     Navigator.pop(context);
   }
