@@ -4,11 +4,17 @@ import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tasks_app/models/tasks.dart';
 
+import '../../data/repo_exports.dart';
+
 part 'tasks_event.dart';
+
 part 'tasks_state.dart';
 
-class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
-  TasksBloc() : super(const TasksState()) {
+class TasksBloc extends Bloc<TasksEvent, TasksState> {
+  final TasksRepository tasksRepository;
+
+  TasksBloc({required this.tasksRepository}) : super(const TasksState()) {
+    on<GetAllTasks>(_onGetAllTasks);
     on<AddTask>(_onAddTask);
     on<UpdateTask>(_onUpdateTask);
     on<DeleteTask>(_onDeleteTask);
@@ -18,8 +24,15 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<DeleteForeverAllTasks>(_onDeleteAllTask);
   }
 
-  FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) {
-    emit(state.copyWith(allTasks: List.from(state.allTasks)..add(event.task)));
+  FutureOr<void> _onGetAllTasks(
+      GetAllTasks event, Emitter<TasksState> emit) async {
+    await tasksRepository.getTask().then((allTasks) {
+      emit(state.copyWith(allTasks: allTasks));
+    });
+  }
+
+  FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) async {
+    await tasksRepository.create(event.task);
   }
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
@@ -81,15 +94,5 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   ) {
     List<Task> removedTasks = List.from(state.removedTasks)..clear();
     emit(state.copyWith(removedTasks: removedTasks));
-  }
-
-  @override
-  TasksState? fromJson(Map<String, dynamic> json) {
-    return TasksState.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(TasksState state) {
-    return state.toMap();
   }
 }
