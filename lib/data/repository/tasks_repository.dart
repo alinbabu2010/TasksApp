@@ -4,4 +4,6 @@ abstract class TasksRepository {
   Future<void> create(Task task);
 
   Future<List<Task>> getTask();
+
+  Future<void> updateTask(Task task);
 }

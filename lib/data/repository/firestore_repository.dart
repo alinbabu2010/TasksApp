@@ -37,4 +37,19 @@ class FireStoreTasksRepository extends TasksRepository {
       throw Exception(error.toString());
     }
   }
+
+  @override
+  Future<void> updateTask(Task task) async {
+    if (firebaseAuth.currentUser == null) {
+      return;
+    }
+    try {
+      await firestoreInstance
+          .collection((firebaseAuth.currentUser?.uid)!)
+          .doc(task.id)
+          .update(task.toMap());
+    } catch (error) {
+      throw Exception(error.toString());
+    }
+  }
 }
