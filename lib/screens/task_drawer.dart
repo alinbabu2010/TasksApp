@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tasks_app/generated/l10n.dart';
 import 'package:tasks_app/screens/tabs_screen.dart';
 import 'package:tasks_app/screens/trash_screen.dart';
-import 'package:tasks_app/utils/extensions.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../data/repo_exports.dart';
@@ -38,10 +37,8 @@ class TaskDrawer extends StatelessWidget {
             ),
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
-                final pendingTaskLength =
-                    state.allTasks.getPendingTask().length;
-                final completedTaskLength =
-                    state.allTasks.getCompletedTask().length;
+                final pendingTaskLength = state.pendingTasks.length;
+                final completedTaskLength = state.completedTasks.length;
                 return ListTile(
                   leading: const Icon(Icons.folder_special),
                   title: Text(appLocale.labelMyTasks),
