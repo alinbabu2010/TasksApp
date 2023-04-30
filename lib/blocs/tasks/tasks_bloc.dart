@@ -55,12 +55,12 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     add(GetAllTasks());
   }
 
-  FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
-    emit(
-      state.copyWith(
-        removedTasks: List.from(state.removedTasks)..remove(event.task),
-      ),
-    );
+  FutureOr<void> _onDeleteTask(
+    DeleteTask event,
+    Emitter<TasksState> emit,
+  ) async {
+    await tasksRepository.deleteTask(event.task);
+    add(GetAllTasks());
   }
 
   FutureOr<void> _onRemoveTask(
