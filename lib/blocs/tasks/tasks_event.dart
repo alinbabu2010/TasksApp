@@ -4,6 +4,11 @@ abstract class TasksEvent extends Equatable {
   const TasksEvent();
 }
 
+class GetAllTasks extends TasksEvent {
+  @override
+  List<Object?> get props => [];
+}
+
 class AddTask extends TasksEvent {
   final Task task;
 
