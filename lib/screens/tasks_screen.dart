@@ -21,7 +21,6 @@ class TasksScreen extends StatelessWidget {
     final appLocale = S.of(context);
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
-
         var tasks = isCompleted == true
             ? state.completedTasks
             : isFavorite == true

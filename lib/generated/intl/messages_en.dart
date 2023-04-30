@@ -27,6 +27,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "${Intl.plural(count, one: '1 task', other: '${count} tasks')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("Tasks App"),
         "appTitle": MessageLookupByLibrary.simpleMessage("Flutter Tasks App"),

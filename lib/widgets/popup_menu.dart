@@ -33,39 +33,39 @@ class PopupMenu extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-          onTap: favoriteOrUnfavoriteCallback,
-          child: PopupTextButton(
-            icon:
+                onTap: favoriteOrUnfavoriteCallback,
+                child: PopupTextButton(
+                  icon:
                       task.isFavorite! ? Icons.favorite_border : Icons.favorite,
                   label: task.isFavorite!
                       ? appLocale.labelUnfavorite
                       : appLocale.labelFavorite,
                 ),
-        ),
-        PopupMenuItem(
-          onTap: cancelOrDeleteCallback,
-          child: PopupTextButton(
+              ),
+              PopupMenuItem(
+                onTap: cancelOrDeleteCallback,
+                child: PopupTextButton(
                   icon: Icons.delete,
                   label: appLocale.labelDelete,
                 ),
-        ),
-      ]
+              ),
+            ]
           : [
-        PopupMenuItem(
-          onTap: restoreCallback,
-          child: PopupTextButton(
+              PopupMenuItem(
+                onTap: restoreCallback,
+                child: PopupTextButton(
                   icon: Icons.restore_from_trash,
                   label: appLocale.labelRestore,
                 ),
-        ),
-        PopupMenuItem(
-          onTap: cancelOrDeleteCallback,
-          child: PopupTextButton(
+              ),
+              PopupMenuItem(
+                onTap: cancelOrDeleteCallback,
+                child: PopupTextButton(
                   icon: Icons.delete_forever,
                   label: appLocale.labelDeleteForever,
                 ),
-        ),
-      ],
+              ),
+            ],
       onSelected: (value) {
         context.showAddOrEditTaskBottomSheet(task: task);
       },

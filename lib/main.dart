@@ -47,9 +47,9 @@ class TasksApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           final customThemeMode =
-          state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+              state.isDarkTheme ? ThemeMode.dark : ThemeMode.light;
           final themeMode =
-          state.isSystemTheme ? ThemeMode.system : customThemeMode;
+              state.isSystemTheme ? ThemeMode.system : customThemeMode;
           return MaterialApp(
             onGenerateTitle: (context) => S.of(context).appTitle,
             theme: AppThemes.appThemeData[AppTheme.lightTheme],
