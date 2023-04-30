@@ -72,7 +72,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     FavoriteOrUnfavoriteTask event,
     Emitter<TasksState> emit,
   ) {
-    // todo: firestore implementation
+    var task = event.task.copyWith(isFavorite: !event.task.isFavorite!);
+    _onTaskCrud(tasksRepository.updateTask(task));
   }
 
   FutureOr<void> _onRestoreTask(
