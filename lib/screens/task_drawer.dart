@@ -5,6 +5,7 @@ import 'package:tasks_app/screens/trash_screen.dart';
 import 'package:tasks_app/utils/extensions.dart';
 
 import '../blocs/bloc_exports.dart';
+import '../data/repo_exports.dart';
 import '../utils/dimens.dart';
 
 class TaskDrawer extends StatelessWidget {
@@ -98,6 +99,21 @@ class TaskDrawer extends StatelessWidget {
                   );
                 },
               ),
+            ),
+            const Divider(height: Dimens.drawerDividerHeight),
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: Dimens.drawerThemeTileVPadding,
+                horizontal: Dimens.drawerThemeTileHPadding,
+              ),
+              leading: const Icon(Icons.logout),
+              title: Text(appLocale.labelLogout),
+              onTap: () {
+                context.read<AuthRepository>().logout().then(
+                      (value) =>
+                          Navigator.of(context).pushReplacementNamed("/"),
+                    );
+              },
             ),
           ],
         ),
