@@ -3,6 +3,7 @@ import 'package:tasks_app/screens/task_drawer.dart';
 import 'package:tasks_app/widgets/popup_text_button.dart';
 
 import '../blocs/bloc_exports.dart';
+import '../data/repo_exports.dart';
 import '../generated/l10n.dart';
 import '../widgets/tasks_list.dart';
 
@@ -50,7 +51,10 @@ class TrashScreen extends StatelessWidget {
           );
         },
       ),
-      drawer: const TaskDrawer(),
+      drawer: RepositoryProvider<AuthRepository>(
+        create: (context) => FirebaseAuthRepository(),
+        child: const TaskDrawer(),
+      ),
     );
   }
 }

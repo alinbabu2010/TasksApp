@@ -6,6 +6,9 @@ import 'package:tasks_app/screens/task_drawer.dart';
 import 'package:tasks_app/screens/tasks_screen.dart';
 import 'package:tasks_app/utils/extensions.dart';
 
+import '../blocs/bloc_exports.dart';
+import '../data/repo_exports.dart';
+
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
 
@@ -48,7 +51,10 @@ class _TabsScreenState extends State<TabsScreen> {
             )
         ],
       ),
-      drawer: const TaskDrawer(),
+      drawer: RepositoryProvider<AuthRepository>(
+        create: (context) => FirebaseAuthRepository(),
+        child: const TaskDrawer(),
+      ),
       floatingActionButton: (Platform.isAndroid && selectedPage == 0)
           ? FloatingActionButton(
               onPressed: () => context.showAddOrEditTaskBottomSheet(),
