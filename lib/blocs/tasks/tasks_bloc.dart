@@ -33,6 +33,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
   FutureOr<void> _onAddTask(AddTask event, Emitter<TasksState> emit) async {
     await tasksRepository.create(event.task);
+    add(GetAllTasks());
   }
 
   FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
