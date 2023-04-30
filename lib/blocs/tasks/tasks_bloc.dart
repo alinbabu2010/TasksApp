@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tasks_app/models/tasks.dart';
+import 'package:tasks_app/utils/extensions.dart';
 
 import '../../data/repo_exports.dart';
 
@@ -24,9 +25,18 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   }
 
   FutureOr<void> _onGetAllTasks(
-      GetAllTasks event, Emitter<TasksState> emit) async {
-    await tasksRepository.getTask().then((allTasks) {
-      emit(state.copyWith(allTasks: allTasks));
+    GetAllTasks event,
+    Emitter<TasksState> emit,
+  ) async {
+    await tasksRepository.getTask().then((tasks) {
+      emit(
+        state.copyWith(
+          pendingTasks: tasks.pendingTask,
+          completedTasks: tasks.completedTask,
+          favoriteTasks: tasks.favoriteTask,
+          removedTasks: tasks.removedTask,
+        ),
+      );
     });
   }
 
@@ -67,20 +77,11 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     FavoriteOrUnfavoriteTask event,
     Emitter<TasksState> emit,
   ) {
-    List<Task> taskList = state.allTasks
-        .map((task) => task == event.task
-            ? task.copyWith(isFavorite: task.isFavorite == false)
-            : task)
-        .toList();
-    emit(state.copyWith(allTasks: taskList));
+    // todo: firestore implementation
   }
 
   FutureOr<void> _onRestoreTask(RestoreTask event, Emitter<TasksState> emit) {
-    List<Task> removedTasks = List.from(state.removedTasks)..remove(event.task);
-    List<Task> allTasks = List.from(state.allTasks)
-      ..add(event.task.copyWith(isDeleted: false));
-    allTasks.sort((task1, task2) => task1.date.compareTo(task2.date));
-    emit(state.copyWith(allTasks: allTasks, removedTasks: removedTasks));
+    // todo: firestore implementation
   }
 
   FutureOr<void> _onDeleteAllTask(
