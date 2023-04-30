@@ -7,7 +7,6 @@ import 'package:tasks_app/models/tasks.dart';
 import '../../data/repo_exports.dart';
 
 part 'tasks_event.dart';
-
 part 'tasks_state.dart';
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
@@ -36,19 +35,14 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     add(GetAllTasks());
   }
 
-  FutureOr<void> _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
-    var newTask = event.task;
-    List<Task> allTasks = state.allTasks.map((task) {
-      return task.id == newTask.id
-          ? event.isEdit == true
-              ? task.copyWith(
-                  title: newTask.title,
-                  description: newTask.description,
-                )
-              : task.copyWith(isDone: task.isDone == false)
-          : task;
-    }).toList();
-    emit(state.copyWith(allTasks: allTasks));
+  FutureOr<void> _onUpdateTask(
+      UpdateTask event, Emitter<TasksState> emit) async {
+    var eventTask = event.task;
+    Task task = event.isEdit == true
+        ? eventTask
+        : eventTask.copyWith(isDone: !eventTask.isDone!);
+    await tasksRepository.updateTask(task);
+    add(GetAllTasks());
   }
 
   FutureOr<void> _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
