@@ -26,7 +26,8 @@ class LoginScreen extends StatelessWidget {
               data.password!,
             );
       },
-      onRecoverPassword: (data) {},
+      onRecoverPassword: (email) =>
+          context.read<AuthRepository>().resetPassword(email),
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
       },
