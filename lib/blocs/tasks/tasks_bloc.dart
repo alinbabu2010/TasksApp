@@ -100,4 +100,9 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     List<Task> removedTasks = List.from(state.removedTasks)..clear();
     emit(state.copyWith(removedTasks: removedTasks));
   }
+
+  FutureOr<void> _onTaskCrud(FutureOr<void> action) async {
+    await action;
+    add(GetAllTasks());
+  }
 }
