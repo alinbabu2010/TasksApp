@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:tasks_app/screens/tabs_screen.dart';
 
+import '../blocs/bloc_exports.dart';
+import '../data/repo_exports.dart';
 import '../generated/l10n.dart';
 import '../utils/dimens.dart';
 
@@ -11,10 +14,22 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocale = S.of(context);
     return FlutterLogin(
-      onLogin: (data) {},
-      onSignup: (data) {},
+      onLogin: (data) {
+        return context.read<AuthRepository>().login(
+              data.name,
+              data.password,
+            );
+      },
+      onSignup: (data) {
+        return context.read<AuthRepository>().signup(
+              data.name!,
+              data.password!,
+            );
+      },
       onRecoverPassword: (data) {},
-      onSubmitAnimationCompleted: () {},
+      onSubmitAnimationCompleted: () {
+        Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+      },
       messages: LoginMessages(
         loginButton: appLocale.labelLogin,
         signupButton: appLocale.labelCreateAccount,
