@@ -6,20 +6,12 @@ part 'theme_state.dart';
 
 class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(const ThemeInitial(false, true)) {
-    on<DarkThemeEvent>((event, emit) {
-      emit(const ThemeState(true, false));
+    on<UserThemeEvent>((event, emit) {
+      emit(ThemeState(event.isDarkTheme, false));
     });
 
-    on<LightThemeEvent>((event, emit) {
-      emit(const ThemeState(false, false));
-    });
-
-    on<EnableSystemThemeEvent>((event, emit) {
-      emit(const ThemeState(false, true));
-    });
-
-    on<DisableSystemThemeEvent>((event, emit) {
-      emit(ThemeState(state.isDarkTheme, false));
+    on<SystemThemeEvent>((event, emit) {
+      emit(ThemeState(state.isDarkTheme, event.isSystemTheme));
     });
   }
 

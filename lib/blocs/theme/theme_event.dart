@@ -3,10 +3,14 @@ part of 'theme_bloc.dart';
 @immutable
 abstract class ThemeEvent {}
 
-class DarkThemeEvent extends ThemeEvent {}
+class UserThemeEvent extends ThemeEvent {
+  final bool isDarkTheme;
 
-class LightThemeEvent extends ThemeEvent {}
+  UserThemeEvent(this.isDarkTheme);
+}
 
-class EnableSystemThemeEvent extends ThemeEvent {}
+class SystemThemeEvent extends ThemeEvent {
+  final bool isSystemTheme;
 
-class DisableSystemThemeEvent extends ThemeEvent {}
+  SystemThemeEvent(this.isSystemTheme);
+}

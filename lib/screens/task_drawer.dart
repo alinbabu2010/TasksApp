@@ -67,9 +67,7 @@ class TaskDrawer extends StatelessWidget {
                   return Switch(
                     value: state.isDarkTheme,
                     onChanged: (bool value) {
-                      final event =
-                          value ? DarkThemeEvent() : LightThemeEvent();
-                      context.read<ThemeBloc>().add(event);
+                      context.read<ThemeBloc>().add(UserThemeEvent(value));
                     },
                   );
                 },
@@ -88,10 +86,7 @@ class TaskDrawer extends StatelessWidget {
                   return Switch(
                     value: state.isSystemTheme,
                     onChanged: (bool value) {
-                      final event = value
-                          ? EnableSystemThemeEvent()
-                          : DisableSystemThemeEvent();
-                      context.read<ThemeBloc>().add(event);
+                      context.read<ThemeBloc>().add(SystemThemeEvent(value));
                     },
                   );
                 },
