@@ -44,6 +44,14 @@ class _AddOrEditTaskScreenState extends State<AddOrEditTaskScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.task?.title ?? titleController.text;
+    descriptionController.text =
+        widget.task?.description ?? descriptionController.text;
+  }
+
+  @override
   void dispose() {
     super.dispose();
     titleController.dispose();
@@ -53,13 +61,6 @@ class _AddOrEditTaskScreenState extends State<AddOrEditTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final appLocale = S.of(context);
-    titleController.text = widget.task?.title ?? titleController.text;
-    titleController.selection =
-        TextSelection.collapsed(offset: titleController.text.length);
-    descriptionController.text =
-        widget.task?.description ?? descriptionController.text;
-    descriptionController.selection =
-        TextSelection.collapsed(offset: descriptionController.text.length);
     return Padding(
       padding: const EdgeInsets.all(Dimens.addTaskPadding),
       child: Form(
