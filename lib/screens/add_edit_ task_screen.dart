@@ -6,21 +6,29 @@ import 'package:tasks_app/utils/guid_gen.dart';
 import '../generated/l10n.dart';
 import '../models/tasks.dart';
 
-class AddOrEditTaskScreen extends StatelessWidget {
+class AddOrEditTaskScreen extends StatefulWidget {
   final Task? task;
 
-  AddOrEditTaskScreen({
+  const AddOrEditTaskScreen({
     super.key,
     this.task,
   });
 
+  @override
+  State<AddOrEditTaskScreen> createState() => _AddOrEditTaskScreenState();
+}
+
+class _AddOrEditTaskScreenState extends State<AddOrEditTaskScreen> {
   final formKey = GlobalKey<FormState>();
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void _onSubmit(String title, String description, BuildContext context) {
     var tasksBloc = context.read<TasksBloc>();
-    if (task != null) {
+    if (widget.task != null) {
       tasksBloc.add(UpdateTask(
-        task: (task?.copyWith(title: title, description: description))!,
+        task: (widget.task?.copyWith(title: title, description: description))!,
         isEdit: true,
       ));
     } else {
@@ -36,14 +44,22 @@ class AddOrEditTaskScreen extends StatelessWidget {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appLocale = S.of(context);
-    TextEditingController titleController =
-        TextEditingController(text: task?.title);
+    titleController.text = widget.task?.title ?? titleController.text;
     titleController.selection =
         TextSelection.collapsed(offset: titleController.text.length);
-    TextEditingController descriptionController =
-        TextEditingController(text: task?.description);
+    descriptionController.text =
+        widget.task?.description ?? descriptionController.text;
+    descriptionController.selection =
+        TextSelection.collapsed(offset: descriptionController.text.length);
     return Padding(
       padding: const EdgeInsets.all(Dimens.addTaskPadding),
       child: Form(
@@ -51,7 +67,9 @@ class AddOrEditTaskScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              task != null ? appLocale.labelEditTask : appLocale.labelAddTask,
+              widget.task != null
+                  ? appLocale.labelEditTask
+                  : appLocale.labelAddTask,
               style: const TextStyle(fontSize: Dimens.addTaskFontSize),
             ),
             const SizedBox(height: Dimens.addTaskSizedBoxHeight),
@@ -101,7 +119,9 @@ class AddOrEditTaskScreen extends StatelessWidget {
                     }
                   },
                   child: Text(
-                    task == null ? appLocale.labelAdd : appLocale.labelSave,
+                    widget.task == null
+                        ? appLocale.labelAdd
+                        : appLocale.labelSave,
                   ),
                 ),
               ],
