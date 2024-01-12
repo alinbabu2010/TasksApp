@@ -32,6 +32,7 @@ class TasksScreen extends StatelessWidget {
           children: [
             Center(
               child: Chip(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                 label: AnimatedSize(
                   duration: const Duration(milliseconds: 150),
                   curve: Curves.fastOutSlowIn,

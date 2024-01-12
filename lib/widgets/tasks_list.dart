@@ -18,10 +18,11 @@ class TasksList extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: ExpansionPanelList.radio(
-          dividerColor: Theme.of(context).colorScheme.background,
-          elevation: 1,
+          dividerColor: Theme.of(context).colorScheme.primaryContainer,
+          elevation: 0,
           children: taskList
               .map((task) => ExpansionPanelRadio(
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                     value: task.id,
                     headerBuilder: (context, isOpen) => TaskTile(task: task),
                     body: ListTile(

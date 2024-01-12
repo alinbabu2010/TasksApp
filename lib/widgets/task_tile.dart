@@ -35,7 +35,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      horizontalTitleGap: 0,
+      horizontalTitleGap: 8,
       title: Text(
         task.title,
         overflow: TextOverflow.ellipsis,

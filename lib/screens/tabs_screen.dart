@@ -47,6 +47,7 @@ class _TabsScreenState extends State<TabsScreen> {
     final pageListMap = getPageListMap(appLocale);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text(pageListMap[selectedPage]["title"]),
         foregroundColor: Theme.of(context).colorScheme.onSecondary,
         actions: [
@@ -70,6 +71,7 @@ class _TabsScreenState extends State<TabsScreen> {
           : null,
       body: pageListMap[selectedPage]["page"],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         currentIndex: selectedPage,
         onTap: (index) {
           setState(() {
