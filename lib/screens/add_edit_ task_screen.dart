@@ -112,7 +112,7 @@ class _AddOrEditTaskScreenState extends State<AddOrEditTaskScreen> {
                   onPressed: () => Navigator.pop(context),
                   child: Text(appLocale.labelCancel),
                 ),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () {
                     if (formKey.currentState?.validate() == true) {
                       _onSubmit(titleController.text,
